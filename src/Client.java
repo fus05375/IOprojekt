@@ -2,11 +2,16 @@ public class Client {
     private String name;
     private String PIN;
     private float money;// 1000 reszta to operacje
+    private String operation;
 
-    public Client(String name, String PIN, float money) {
+    float CashForStart = 1000;
+    float amountOfCash;
+
+    public Client(String name, String PIN, float money, String operation) {
         this.name = name;
         this.PIN = PIN;
         this.money = money;
+        this.operation = operation;
     }
 
 
@@ -18,28 +23,31 @@ public class Client {
         return PIN;
     }
 
-    public float getMoney() {
+    public float getMoney() {return money;}
 
-        return money;
-    }
-    public void wyplac(int kwota){
-        if(kwota>money) {
-            System.out.println("Nie masz wystarczająco środków na koncie!");
-            return;
+
+    public float operations() {
+        switch (operation) {
+            case "income;":
+                amountOfCash = CashForStart + money;
+                break;
+
+            case "outcome;":
+                amountOfCash = CashForStart - money;
+                break;
+
+            default:
+                System.out.println("Wrong operation type");
+                break;
         }
-        money= money - kwota;
-        System.out.println("Wypłaciłeś: "+ kwota);
-        System.out.println("Twoje saldo wynosi: "+money);
+        return amountOfCash;
     }
 
-    public void wplac(int kwota){
-        if(kwota<=0) {
-            System.out.println("Nie możesz wpłacić ujemnej wartości!");
-            return;
-        }
-        money= money+kwota;
-        System.out.println("Wpłaciłeś: "+ kwota);
-        System.out.println("Twoje saldo wynosi: "+money);
+    public String getRaport (){
+        return name +" "+ amountOfCash;
     }
+
+
+
 
 }
