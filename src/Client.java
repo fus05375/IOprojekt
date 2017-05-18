@@ -28,11 +28,11 @@ public class Client {
 
     public float operations() {
         switch (operation) {
-            case "income;":
+            case "income":
                 amountOfCash = CashForStart + money;
                 break;
 
-            case "outcome;":
+            case "outcome":
                 amountOfCash = CashForStart - money;
                 break;
 

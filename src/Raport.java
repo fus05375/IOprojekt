@@ -14,13 +14,14 @@ public class Raport  {
     public void setRaport(List<Client> clients){
         try{
             PrintWriter writer = new PrintWriter("fn", "UTF-8");
-            for( int i=0;i<clients.size();i++){
+            for( int i=0;i<clients.size()-1;i++){
             writer.println(clients.get(i).getRaport());
-            writer.close();
             }
+            writer.close();
+
 
         } catch (IOException e) {
-            System.out.println("Error1");
+            System.out.println("Error in setRaport");
         }
     }
 

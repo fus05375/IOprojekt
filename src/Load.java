@@ -39,10 +39,32 @@ public class Load {
             type.add(typeOf);
         }
 
-        for (int i = 0; i < 100; i++) {
+//        for (int i = 0; i <=pname.size()-1; i++) {     //dla calosci projektu
+        for (int i = 0; i <=100; i++) {
             clients.add(new Client(pname.get(i), PIN.get(i), Float.parseFloat(money.get(i)), type.get(i)));
 
         }
+
+    }
+    public boolean clientExist(String tmpClient, List<Client> ClientList  ){
+       for( int i=0;i<=ClientList.size()-1;i++) {
+           if (tmpClient == ClientList.get(i).getName()) {
+               System.out.println("Istnieje");
+               return true;
+           }
+       }
+        System.out.println("NIE Istnieje");
+        return false;
+    }
+    public Client findClient(String tmpClient, List<Client> ClientList){
+        for( int i=0;i<=ClientList.size()-1;i++) {
+            if (tmpClient == ClientList.get(i).getName()) {
+                System.out.println("Klient ustawiony");
+                return ClientList.get(i);
+            }
+        }
+        System.out.println("NIE Ustawiony");
+        return null;
 
     }
 
