@@ -1,13 +1,31 @@
+import java.security.NoSuchAlgorithmException;
+
 public class Client {
     private String name;
     private String PIN;
-    private float money;// 1000 reszta to operacje
-    private String operation;
+    String money;// 1000 reszta to operacje
+    int wrongPin=0;
+    float amountOfCash = 1000;
+    Load l;
 
-    float CashForStart = 1000;
-    float amountOfCash;
+    public String getOperation() {
+        return operation;
+    }
 
-    public Client(String name, String PIN, float money, String operation) {
+    String operation;
+    boolean block = false;
+
+
+
+    public boolean isBlock() {
+        return block;
+    }
+
+//      String hashPin =l.sha256(PIN);
+
+
+
+    public Client(String name, String PIN, String money, String operation) throws NoSuchAlgorithmException {
         this.name = name;
         this.PIN = PIN;
         this.money = money;
@@ -23,31 +41,54 @@ public class Client {
         return PIN;
     }
 
-    public float getMoney() {return money;}
+    public String getMoney() {return money;}
 
 
-    public float operations() {
-        switch (operation) {
-            case "income":
-                amountOfCash = CashForStart + money;
-                break;
+    public float operations(String operation, float money ) {
 
-            case "outcome":
-                amountOfCash = CashForStart - money;
-                break;
+            switch (operation) {
+                case "income":
 
-            default:
-                System.out.println("Wrong operation type");
-                break;
-        }
-        return amountOfCash;
+                        if (money >= 0)
+                            amountOfCash = amountOfCash + money; // przy wplacie liczby dodatnie
+                        else {
+                            System.out.println("Sth bad with money!!");
+                            return amountOfCash;
+                        }
+                        break;
+
+
+                case "outcome":
+                    if (money >= 0 && amountOfCash >= 0 && money <= amountOfCash) {
+                        amountOfCash = amountOfCash - money;
+                    } else {
+                        System.out.println("Not enough cash");
+                        return amountOfCash;
+                    }
+                    break;
+                case "ACCOUNT":
+                    System.out.println(amountOfCash);
+                    break;
+
+                default:
+                    System.out.println("Wrong operation type");
+                    return amountOfCash;
+            }
+            return amountOfCash;
     }
 
     public String getRaport (){
         return name +" "+ amountOfCash;
     }
 
+    public void wrongPin(){
+        System.out.println("Wrong PIN");
+        wrongPin++;
+        if(wrongPin>=3){
+            System.out.println("Account Blocked!!!");
+            block=true;
 
-
+        }
+    }
 
 }

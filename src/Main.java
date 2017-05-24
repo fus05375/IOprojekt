@@ -1,62 +1,76 @@
-import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-
-
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        int nrOperacji=0;
         Load load = new Load();
-        load.loadBook("DataInputGroupFBlad.csv");
+        load.loadBook("TestyAkceptacyjneGrupaF.csv");
         Raport raport = new Raport();
-        List<Client> ClientList = new ArrayList<Client>();
 
-        int nrOperacji = 0;
+
+        List<Client> ClientBase = new ArrayList<Client>();
         for (int i = 0; i <= (load.getClients().size()) - 1; i++) {
 
-            ClientList.add(load.getClients().get(i));
 
-            if(load.clientExist(load.getClients().get(i).getName(),ClientList)){
-                Client client = load.findClient(load.getClients().get(i).getName(),ClientList);
+            /* Jeżeli w naszej bazie nie ma klienta - dodajemy, jeżeli jest - operujemy */
+            if (load.clientDoesntExist(load.getClients().get(i).getName(), ClientBase)) {
+                ClientBase.add(load.getClients().get(i));
 
-                if (load.getClients().get(i).getPIN()==client.getPIN()){
-                    client.operations();
-                    System.out.println("udalosie");
+
+                /* Po dodaniu klienta robimy pierwszą operację, wpierw znajdujemy klienta, następnie operacja*/
+                Client client = load.findClient(load.getClients().get(i).getName(), ClientBase);
+
+
+                /* Przypadek gdy zamiast zmiennej typu float, mamy string. Catch łapie błąd, ustawia operacje na 0*/
+                try {
+                    client.operations(load.getClients().get(i).getOperation(), Float.parseFloat(load.getClients().get(i).getMoney()));
+                    nrOperacji++;
+                    System.out.println(nrOperacji);
+                    System.out.println(client.getRaport());
+                }catch (NumberFormatException e){
+                    System.out.println("zły format");
+                    client.operations(load.getClients().get(i).getOperation(), 0);
+                    nrOperacji++;
+                    System.out.println(nrOperacji);
+                    System.out.println(client.getRaport());
                 }
-                else{
-                    
-                }
-            }
 
-            nrOperacji++;
-            if (nrOperacji == 100) {
-                raport.setRaport(ClientList);
-                nrOperacji = 0;
+
+            }else{
+                    /* Ustawiamy znacznik na klienta z naszej bazy */
+                Client client = load.findClient(load.getClients().get(i).getName(),ClientBase);
+
+
+                    /* Porównanie Pinu */
+                if (load.getClients().get(i).getPIN().equals(client.getPIN())&&client.isBlock()==false){
+                    try {
+                        client.operations(load.getClients().get(i).getOperation(), Float.parseFloat(load.getClients().get(i).getMoney()));
+                        nrOperacji++;
+                        System.out.println(nrOperacji);
+                        System.out.println(client.getRaport());
+                    }catch (NumberFormatException e){
+                        System.out.println("zły format danych wejściowych");
+                        client.operations(load.getClients().get(i).getOperation(), 0);
+                        nrOperacji++;
+                        System.out.println(nrOperacji);
+                        System.out.println(client.getRaport());
+                    }
+
+                    /* Przypisanie zablokowania konta */
+                }else{
+                    client.wrongPin();
+                    nrOperacji++;
+                    System.out.println(nrOperacji);
+                }
             }
 
         }
-//            load.getClients().get(i).operations();
-//            ClientList.add(load.getClients().get(i));
+        raport.setRaport(ClientBase);
 
-        //load.clientExist(load.getClients().get(i).getName(),ClientList);
-        //raport.setRaport(ClientList);
-//            Client ClientNOWY;
-//            ClientNOWY=load.findClient(load.getClients().get(i).getName(),ClientList);
-//            System.out.println(ClientNOWY.getRaport());
+
+
     }
 }
-
-
-
-//        System.out.println(load.getClients().get(2).getRaport());
-//        System.out.println(load.getClients().get(2).operations());
-//        System.out.println(load.getClients().get(2).getRaport());
-
-
-
-
-
-
-
-
