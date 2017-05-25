@@ -1,3 +1,3 @@
-Projekt zaliczeniowy bankomatu na zajęcia Inżynieria Oprogramowania
+Projekt bankomatu skupionyna inżynierii oprogramowania
 
 Sczytuje wartości z pliku csv, generuje raport, łapie wyjątki
