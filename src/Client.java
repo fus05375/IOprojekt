@@ -1,6 +1,7 @@
 import java.security.NoSuchAlgorithmException;
 
 public class Client {
+
     private String name;
     private String PIN;
     String money;// 1000 reszta to operacje
@@ -21,15 +22,13 @@ public class Client {
         return block;
     }
 
-//      String hashPin =l.sha256(PIN);
-
-
 
     public Client(String name, String PIN, String money, String operation) throws NoSuchAlgorithmException {
         this.name = name;
         this.PIN = PIN;
         this.money = money;
         this.operation = operation;
+
     }
 
 

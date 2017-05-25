@@ -1,6 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.charset.StandardCharsets;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -34,7 +34,12 @@ public class Load {
                 String no = parts[1];
                 numberList.add(no);
                 String name = parts[2];
+                if(name.length()<=12){
                 pname.add(name);
+                }else{
+                    System.out.println("Nazwa użytkownika za długa, domyślny login Staś");
+                    pname.add("Staś");
+                }
                 String pin = parts[3];
                 PIN.add(pin);
                 String cash = parts[4];

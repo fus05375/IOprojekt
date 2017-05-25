@@ -46,6 +46,7 @@ public class Main {
 
                     /* Porównanie Pinu */
                 if (load.getClients().get(i).getPIN().equals(client.getPIN())&&client.isBlock()==false){
+
                     try {
                         client.operations(load.getClients().get(i).getOperation(), Float.parseFloat(load.getClients().get(i).getMoney()));
                         nrOperacji++;
@@ -68,7 +69,11 @@ public class Main {
             }
 
         }
-        raport.setRaport(ClientBase);
+            raport.setRaport(ClientBase);
+
+
+        System.out.println(load.sha256(ClientBase.get(1).getPIN()));
+        System.out.println(load.sha256(load.getClients().get(1).getPIN()));
 
 
 
