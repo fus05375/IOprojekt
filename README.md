@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Project reads the values from csv file, generates a report.
+Project reads the values from csv file, generates a raport.
 
 ## Tests
 
