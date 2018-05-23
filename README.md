@@ -1,6 +1,4 @@
-# Project Title
-
-Simple ATM/cash machine raport simulator
+# Simple ATM/cash machine raport simulator
 
 ## Getting Started
 
